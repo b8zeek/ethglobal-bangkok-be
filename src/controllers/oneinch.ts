@@ -30,8 +30,6 @@ export const getCurrentValue: RequestHandler = async (req, res, next) => {
 export const getProfitAndLoss: RequestHandler = async (req, res, next) => {
     const { chain_id, addresses } = req.body
 
-    console.log('A', addresses, chain_id)
-
     try {
         const { data } = await axios.get(
             'https://api.1inch.dev/portfolio/portfolio/v4/overview/erc20/profit_and_loss',
@@ -85,14 +83,11 @@ export const getTokenDetails: RequestHandler = async (req, res, next) => {
 
 export const getTokens: RequestHandler = async (_, res, next) => {
     try {
-        console.log('GEtting...')
         const { data } = await axios.get('https://api.1inch.dev/token/v1.2/1', {
             headers: {
                 Authorization: `Bearer ${process.env.VITE_ONE_INCH_API_KEY}`
             }
         })
-
-        console.log('data', data)
 
         res.status(200).json({ response: data })
     } catch (err) {
